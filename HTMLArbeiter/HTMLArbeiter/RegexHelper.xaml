@@ -1,0 +1,30 @@
+﻿<Window x:Class="HTMLArbeiter.RegexHelper"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HTMLArbeiter"
+        mc:Ignorable="d"
+        Title="RegexHelper" Height="800" Width="1000">
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition/>
+                <RowDefinition Height="500"/>
+            </Grid.RowDefinitions>
+            <TextBox Name="txtInput" Margin="5" Grid.Column="0" Grid.Row="0"/>
+            <TextBox Name="txtUrl" Margin="5" Grid.Column="0" Grid.Row="1"/>
+            <TextBox Name="txtRegex" TextWrapping="Wrap" Margin="5" Grid.Column="0" Grid.Row="2"/>
+            <TextBox Name="txtHtml" TextWrapping="Wrap" Margin="5" Grid.Column="0" Grid.Row="3"/>
+            <Button Name="btnMatch" Margin="5" Grid.Column="1" Grid.Row="0" Content="Match" Click="btnMatch_Click"/>
+            <Button Name="btnGetResponse" Margin="5" Grid.Column="1" Grid.Row="1" Content="Get HTML" Click="btnGetResponse_Click"/>
+            <Button Name="btnWebClient" Margin="5" Grid.Column="1" Grid.Row="2" Content="Get HTML" Click="btnWebClient_Click" />
+        </Grid>
+    </Grid>
+</Window>

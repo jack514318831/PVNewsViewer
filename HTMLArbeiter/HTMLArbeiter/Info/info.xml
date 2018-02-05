@@ -1,0 +1,146 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WebInfo>
+  <Web Name="Photon Info" StartURL="https://www.photon.info/" Modul="1">
+    <URLs>
+      <URL Catagory="Wirtschaft">
+        <t1>https://www.photon.info/en/news-categories/7</t1>
+        <t2>?page=</t2>
+        <t3></t3>
+      </URL>
+    </URLs>
+    <RegularLink>(?&lt;=&lt;h3&gt;).*?(?=&lt;/h3&gt;)</RegularLink>
+    <RegularTitel>(?&lt;=&lt;h1 class="page-header"&gt;).*?(?=&lt;/h1&gt;)</RegularTitel>
+    <RegularDate>(?&lt;=&lt;div class="field field-name-post-date field-type-ds field-label-inline clearfix"&gt;)(.|\n)*?(?=&lt;/div&gt;)</RegularDate>
+    <RegularContent>(?&lt;=&lt;div class="field-item even" property="content:encoded")(.|\n)*?(?=&lt;/div&gt;)</RegularContent>
+  </Web>
+  <Web Name="PV Magazine" StartURL=""  Modul="1">
+    <URLs>
+      <URL Catagory="Wirtschaft">
+        <t1>https://www.pv-magazine.com/nachricht/</t1>
+        <t2>page/</t2>
+        <t3></t3>
+      </URL>
+    </URLs>
+    <RegularLink>(?&lt;=&lt;h2 class="entry-title" itemprop="headline"&gt;).*?(?=&lt;/h2&gt;)</RegularLink>
+    <RegularTitel>(?&lt;=&lt;h1 class="entry-title" itemprop="headline"&gt;)(.|\n)*?(?=&lt;/h1&gt;)</RegularTitel>
+    <RegularDate>(?&lt;=&lt;time class="entry-published updated" datetime=").*?(?=" itemprop="datePublished")</RegularDate>
+    <RegularContent>(?&lt;=&lt;div class="entry-content"&gt;)(.|\n)*?(?=&lt;/div&gt;)</RegularContent>
+  </Web>
+  <Web Name="PV Tech" StartURL="" Modul="1">
+     <URLs>
+      <URL Catagory="manufacturing">
+        <t1>https://www.pv-tech.org/news/list/category/manufacturing/</t1>
+        <t2>P</t2>
+        <t3></t3>
+      </URL>
+    </URLs>
+    <RegularLink>(?&lt;=&lt;header&gt;(\n)*?&lt;h2&gt;)(.|\n)*?(?=&lt;/h2&gt;)</RegularLink>
+    <RegularTitel>(?&lt;=&lt;h1&gt;).*?(?=&lt;/h1&gt;)</RegularTitel>
+    <RegularDate>(?&lt;=&lt;ul class="meta list-inline delimited"&gt;)(.|\n)*?(?=&lt;/ul&gt;)</RegularDate>
+    <RegularContent>(?&lt;=&lt;div class="body"&gt;(.|\n)*?&lt;p&gt;)(.|\n)*?(?=&lt;p class="meta"&gt;)</RegularContent>
+  </Web>
+  <Web Name="Twitter" StartURL=""  Modul="1">
+     <URLs>
+      <URL Catagory="Wirtschaft">
+        <t1>https://www.pv-magazine.com/nachricht/</t1>
+        <t2>page/</t2>
+        <t3></t3>
+      </URL>
+    </URLs>
+    <RegularLink>(?&lt;=&lt;div class="u-textTruncate u-inlineBlock"&gt;)(.|\n)*?(?=&lt;/div&gt;)</RegularLink>
+    <RegularTitel>(?&lt;=&lt;h1 class="ProfileHeaderCard-name"&gt;)(.|\n)*?(?=&lt;/h1&gt;)</RegularTitel>
+    <RegularDate>(?&lt;=&lt;ul class="meta list-inline delimited"&gt;)(.|\n)*?(?=&lt;/ul&gt;)</RegularDate>
+    <RegularContent>(?&lt;=&lt;div class="body"&gt;(.|\n)*?)(.|\n)*?(?=&lt;p class="meta"&gt;)</RegularContent>
+  </Web>
+  <Web Name="PV Europe" StartURL="" Modul="1">
+     <URLs>
+      <URL Catagory="Solar-Generatorpage">
+        <t1>http://www.pveurope.eu/News/Solar-Generator</t1>
+        <t2>?page=</t2>
+        <t3></t3>
+      </URL>
+    </URLs>
+    <RegularLink>(?&lt;=&lt;h4&gt;).*?(?=&lt;/h4&gt;)</RegularLink>
+    <RegularTitel>(?&lt;=&lt;h1&gt;(.|\n)*?&lt;span class="ezstring-field"&gt;).*?(?=&lt;/span&gt;(.|\n)*?&lt;/h1&gt;)</RegularTitel>
+    <RegularDate>(?&lt;=&lt;span class="date"&gt;)(.|\n)*?(?=&lt;/span&gt;)</RegularDate>
+    <RegularContent>(?&lt;=&lt;div class="ezxmltext-field"&gt;)(.|\n)*?(?=&lt;div class="social-share"&gt;)</RegularContent>
+  </Web>
+  <Web Name="Energy Storage" URL="P" StartURL="" Modul="1">
+     <URLs>
+      <URL Catagory="Storage">
+        <t1>https://www.energy-storage.news/news/list/</t1>
+        <t2>P</t2>
+        <t3></t3>
+      </URL>
+    </URLs>
+    <RegularLink>(?&lt;=&lt;h2 class="article-list__title"&gt;).*?(?=&lt;/h2&gt;)</RegularLink>
+    <RegularTitel>(?&lt;=&lt;h1 class="article__title"&gt;).*?(?=&lt;/h1&gt;)</RegularTitel>
+    <RegularDate>(?&lt;=&lt;span class="aside__label"&gt;)(.|\n)*?(?=&lt;div class="aside__module aside__module--authors cf"&gt;)</RegularDate>
+    <RegularContent>(?&lt;=&lt;div class="wygwam element"&gt;)(.|\n)*?(?=&lt;/div&gt;)</RegularContent>
+  </Web>
+  <Web Name="Solar Power World" StartURL="" Modul="1">
+     <URLs>
+      <URL Catagory="Industry">
+        <t1>https://www.solarpowerworldonline.com/category/industry-news/</t1>
+        <t2>page/</t2>
+        <t3></t3>
+      </URL>
+    </URLs>
+    <RegularLink>(?&lt;=&lt;h2 class="entry-title" itemprop="headline"&gt;).*?(?=&lt;/h2&gt;)</RegularLink>
+    <RegularTitel>(?&lt;=&lt;h1 class="entry-title" itemprop="headline"&gt;).*?(?=&lt;/h1&gt;)</RegularTitel>
+    <RegularDate>(?&lt;=&lt;time class="entry-time" itemprop="datePublished" datetime=)(.|\n)*?(?=&lt;/time&gt;)</RegularDate>
+    <RegularContent>(?&lt;=&lt;div class="entry-content" itemprop="text"&gt;)(.|\n)*?(?=&lt;!--&lt;rdf:RDF)</RegularContent>
+  </Web>
+  <Web Name="Green Energy" StartURL="" Modul="1">
+     <URLs>
+      <URL Catagory="RE">
+        <t1>https://balkangreenenergynews.com/category/news/renewables/</t1>
+        <t2>page/</t2>
+        <t3></t3>
+      </URL>
+    </URLs>
+    <RegularLink>(?&lt;=&lt;h2&gt;)(.|\n)*?(?=&lt;/h2&gt;)</RegularLink>
+    <RegularTitel>(?&lt;=&lt;h1&gt;).*?(?=&lt;/h1&gt;)</RegularTitel>
+    <RegularDate>(?&lt;=&lt;p class="date_location green"&gt;(.|\n)*?&lt;span&gt;)(.|\n)*?(?=&lt;/span&gt;)</RegularDate>
+    <RegularContent>(?&lt;=&lt;h2&gt;)(.|\n)*?(?=&lt;div class="page-footer"&gt;)</RegularContent>
+  </Web>
+  <Web Name="Energy Market Price" StartURL="" Modul="1">
+     <URLs>
+      <URL Catagory="Wirtschaft">
+        <t1>http://www.energymarketprice.com/sitepage.asp?act=lnews&amp;pg=</t1>
+        <t2></t2>
+        <t3>&amp;topic=Ren&amp;sea=</t3>
+      </URL>
+    </URLs>
+    <RegularLink>(?&lt;=&lt;h3 .*?&gt;).*?(?=&lt;/h3&gt;)</RegularLink>
+    <RegularTitel>(?&lt;=&lt;h2 class='news-detail-title'&gt;)(.|\n)*?(?=&lt;br&gt;)</RegularTitel>
+    <RegularDate>(?&lt;=&lt;span class='date text-success'&gt;).*?(?=&lt;/span&gt;)</RegularDate>
+    <RegularContent>(?&lt;=&lt;h3 class='news-detail-subtitle'.*?&gt;)(.|\n)*?(?=&lt;script .*?&gt;)</RegularContent>
+  </Web>
+  <Web Name="Sunenergy" URL="http://sunenergysite.eu/en/PRnews.php?start=" URLplus="&amp;filter=2638" StartURL="" Modul="1">
+     <URLs>
+      <URL Catagory="Wirtschaft">
+        <t1>https://www.pv-magazine.com/nachricht/</t1>
+        <t2>page/</t2>
+        <t3></t3>
+      </URL>
+    </URLs>
+    <RegularLink>(?&lt;=&lt;span class="w2638_thumbnail"&gt;.*?&lt;/span&gt;)(.|\n)*?(?=&lt;br&gt;)</RegularLink>
+    <RegularTitel>(?&lt;=&lt;h1&gt;(.|\n)*?&lt;span class="ezstring-field"&gt;).*?(?=&lt;/span&gt;(.|\n)*?&lt;/h1&gt;)</RegularTitel>
+    <RegularDate>(?&lt;=&lt;span class="date"&gt;)(.|\n)*?(?=&lt;/span&gt;)</RegularDate>
+    <RegularContent>(?&lt;=&lt;div class="ezxmltext-field"&gt;)(.|\n)*?(?=&lt;div class="social-share"&gt;)</RegularContent>
+  </Web>
+  <Web Name="BCSDH" URL="http://bcsdh.hu/category/member-news/page/" URLplus="" StartURL="" Modul="1">
+     <URLs>
+      <URL Catagory="Wirtschaft">
+        <t1>https://www.pv-magazine.com/nachricht/</t1>
+        <t2>page/</t2>
+        <t3></t3>
+      </URL>
+    </URLs>
+    <RegularLink>(?&lt;=&lt;h3&gt;)(.|\n)*?(?=&lt;/h3&gt;)</RegularLink>
+    <RegularTitel>(?&lt;=&lt;h1&gt;).*?(?=&lt;/h1&gt;)</RegularTitel>
+    <RegularDate>(?&lt;=&lt;ul class="meta list-inline delimited"&gt;)(.|\n)*?(?=&lt;/ul&gt;)</RegularDate>
+    <RegularContent>(?&lt;=&lt;div class="body"&gt;(.|\n)*?&lt;p&gt;)(.|\n)*?(?=&lt;p class="meta"&gt;)</RegularContent>
+  </Web>
+</WebInfo>
