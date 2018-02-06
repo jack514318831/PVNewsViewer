@@ -24,6 +24,7 @@ using Microsoft.Win32;
 using HTMLArbeiter.Functions;
 using System.Windows.Markup;
 using System.Text.RegularExpressions;
+using HTMLArbeiter.Model;
 
 namespace HTMLArbeiter
 {
@@ -38,7 +39,7 @@ namespace HTMLArbeiter
         }
 
         List<WebModul> ModulList = new List<WebModul>();
-        List<nachricht> NachrichtList = new List<nachricht>();
+        List<NewsModul> NachrichtList = new List<NewsModul>();
         public WebModul wm { get; set; }
         public WebModul.UrlModel wmUrl { get; set; }
         public ManualResetEvent ThreadDone = new ManualResetEvent(false);
@@ -249,13 +250,13 @@ namespace HTMLArbeiter
             oThread.Start();
         }
 
-        public void AddNewsList(List<nachricht> nachrichtList)
+        public void AddNewsList(List<NewsModul> nachrichtList)
         {
             NachrichtList = NachrichtList.Concat(nachrichtList).ToList();
             if (!Dispatcher.CheckAccess())
             {
                 Dispatcher.Invoke(new Action(() => {
-                    foreach (nachricht nt in nachrichtList)
+                    foreach (NewsModul nt in nachrichtList)
                     {
                         ListBoxItem item = new ListBoxItem();
                         item.Content = nt.Title;
@@ -303,7 +304,7 @@ namespace HTMLArbeiter
         {
             ListBox lb = sender as ListBox;
             if (lb == null) return;
-            nachricht result = (from news in NachrichtList
+            NewsModul result = (from news in NachrichtList
                                where news.Title.Equals((lb.SelectedItem as ListBoxItem).Content)
                                select news).First();
             string output = Regex.Replace(result.Content, "<[pP]>(.+?)</[pP]>","\n$1\n");
@@ -314,7 +315,6 @@ namespace HTMLArbeiter
         private void btnNewsSelect_Click(object sender, RoutedEventArgs e)
         {
             Thread oThread = new Thread(()=> {
-
                 NewsSelection ns = new NewsSelection(NachrichtList);
                 ns.ShowDialog();
                 System.Windows.Threading.Dispatcher.Run();

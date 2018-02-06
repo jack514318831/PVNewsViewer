@@ -2,30 +2,36 @@
 <WebInfo>
   <Web Name="Photon Info" StartURL="https://www.photon.info" Min="0" Max="2" Step="1" Modul="0">
     <URLs>
-      <URL Catagory="Wirtschaft">
-        <t1>https://www.photon.info/de/news-categories/2</t1>
+      <URL Catagory="Business">
+        <t1>https://www.photon.info/en/news-categories/7</t1>
         <t2>?page=</t2>
         <t3>
         </t3>
       </URL>
-      <URL Catagory="Politik">
-        <t1>https://www.photon.info/de/news-categories/1</t1>
+      <URL Catagory="Markets">
+        <t1>https://www.photon.info/en/news-categories/6</t1>
         <t2>?page=</t2>
         <t3>
         </t3>
       </URL>
-      <URL Catagory="Technik">
-        <t1>https://www.photon.info/de/news-categories/3</t1>
+      <URL Catagory="Technology">
+        <t1>https://www.photon.info/en/news-categories/8</t1>
+        <t2>?page=</t2>
+        <t3>
+        </t3>
+      </URL>
+      <URL Catagory="Finance">
+        <t1>https://www.photon.info/en/news-categories/9</t1>
         <t2>?page=</t2>
         <t3>
         </t3>
       </URL>
     </URLs>
     <RegularLink>(?&lt;=&lt;h3&gt;).*?(?=&lt;/h3&gt;)</RegularLink>
-    <RegularIntroduction>(?&lt;=&lt;h3&gt;).*?(?=&lt;/h3&gt;)</RegularIntroduction>
+    <RegularIntroduction>(?&lt;=&lt;p class="date-field"&gt;(.|\n)*?&lt;p&gt;)(.|\n)*?(?=&lt;a)</RegularIntroduction>
     <RegularTitel>(?&lt;=&lt;h1 class="page-header"&gt;).*?(?=&lt;/h1&gt;)</RegularTitel>
-    <RegularDate>(?&lt;=&lt;div class="field field-name-post-date field-type-ds field-label-inline clearfix"&gt;)(.|\n)*?(?=&lt;/div&gt;)</RegularDate>
-    <RegularContent>(?&lt;=&lt;div class="field-item even" property="content:encoded")(.|\n)*?(?=&lt;/div&gt;)</RegularContent>
+    <RegularDate>(?&lt;=&lt;div class="field field-name-post-date field-type-ds field-label-inline clearfix"&gt;(.|\n)*?;)(.|\n)*?(?=-)</RegularDate>
+    <RegularContent>(?&lt;=&lt;div class="field-item even" property="content:encoded"&gt;)(.|\n)*?(?=&lt;/div&gt;)</RegularContent>
   </Web>
   <Web Name="PV Tech" StartURL="" Min="0" Max="90" Step="15" Modul="1">
     <URLs>
@@ -51,8 +57,8 @@
     <RegularLink>(?&lt;=&lt;header&gt;(\n)*?&lt;h2&gt;)(.|\n)*?(?=&lt;/h2&gt;)</RegularLink>
     <RegularIntroduction>aaa</RegularIntroduction>
     <RegularTitel>(?&lt;=&lt;h1&gt;).*?(?=&lt;/h1&gt;)</RegularTitel>
-    <RegularDate>(?&lt;=&lt;ul class="meta list-inline delimited"&gt;)(.|\n)*?(?=&lt;/ul&gt;)</RegularDate>
-    <RegularContent>(?&lt;=&lt;div class="body"&gt;(.|\n)*?&lt;p&gt;)(.|\n)*?(?=&lt;p class="meta"&gt;)</RegularContent>
+    <RegularDate>(?&lt;=&lt;ul class="meta list-inline delimited"&gt;(.|\n)*?&lt;/li&gt;\n&lt;li&gt;)(.|\n)*?(?=&lt;span class="hidden-xs"&gt;)</RegularDate>
+    <RegularContent>(?&lt;=&lt;div class="body"&gt;)(.|\n)*?(?=&lt;p class="meta"&gt;)</RegularContent>
   </Web>
   <Web Name="PV Magazine" StartURL="" Min="1" Max="2" Step="1" Modul="1">
     <URLs>
@@ -90,7 +96,7 @@
     <RegularLink>(?&lt;=&lt;h2 class="entry-title" itemprop="headline"&gt;).*?(?=&lt;/h2&gt;)</RegularLink>
     <RegularIntroduction>aaa</RegularIntroduction>
     <RegularTitel>(?&lt;=&lt;h1 class="entry-title" itemprop="headline"&gt;)(.|\n)*?(?=&lt;/h1&gt;)</RegularTitel>
-    <RegularDate>(?&lt;=&lt;time class="entry-published updated" datetime=").*?(?=" itemprop="datePublished")</RegularDate>
+    <RegularDate>(?&lt;=&lt;time class="entry-published updated" datetime=").*?(?=T(.*?)" itemprop="datePublished")</RegularDate>
     <RegularContent>(?&lt;=&lt;div class="entry-content"&gt;)(.|\n)*?(?=&lt;/div&gt;)</RegularContent>
   </Web>
   <Web Name="PV Europe" StartURL="" Min="1" Max="9" Step="1" Modul="1">
@@ -141,8 +147,8 @@
     <RegularLink>(?&lt;=&lt;h4&gt;).*?(?=&lt;/h4&gt;)</RegularLink>
     <RegularIntroduction>aaa</RegularIntroduction>
     <RegularTitel>(?&lt;=&lt;h1&gt;(.|\n)*?&lt;span class="ezstring-field"&gt;).*?(?=&lt;/span&gt;(.|\n)*?&lt;/h1&gt;)</RegularTitel>
-    <RegularDate>(?&lt;=&lt;span class="date"&gt;)(.|\n)*?(?=&lt;/span&gt;)</RegularDate>
-    <RegularContent>(?&lt;=&lt;div class="ezxmltext-field"&gt;)(.|\n)*?(?=&lt;div class="social-share"&gt;)</RegularContent>
+    <RegularDate>(?&lt;=&lt;span class="date"&gt;(\s|\n)*?)\S*?(?=,)</RegularDate>
+    <RegularContent>(?&lt;=&lt;div class="ezxmltext-field"&gt;(.|\n)*?&lt;div class="ezxmltext-field"&gt;)(.|\n)*?(?=&lt;div class="social-share"&gt;)</RegularContent>
   </Web>
   <Web Name="Energy Storage" URL="P" StartURL="" Min="1" Max="9" Step="1" Modul="1">
     <URLs>
@@ -156,7 +162,7 @@
     <RegularLink>(?&lt;=&lt;h2 class="article-list__title"&gt;).*?(?=&lt;/h2&gt;)</RegularLink>
     <RegularIntroduction>aaa</RegularIntroduction>
     <RegularTitel>(?&lt;=&lt;h1 class="article__title"&gt;).*?(?=&lt;/h1&gt;)</RegularTitel>
-    <RegularDate>(?&lt;=&lt;span class="aside__label"&gt;)(.|\n)*?(?=&lt;div class="aside__module aside__module--authors cf"&gt;)</RegularDate>
+    <RegularDate>(?&lt;=&lt;span class="aside__label"&gt;.*?&lt;/span&gt; )(.|\n)*?(?=,(.|\n)*?&lt;div class="aside__module aside__module--authors cf"&gt;)</RegularDate>
     <RegularContent>(?&lt;=&lt;div class="wygwam element"&gt;)(.|\n)*?(?=&lt;/div&gt;)</RegularContent>
   </Web>
   <Web Name="Solar Power World" StartURL="" Min="1" Max="9" Step="1" Modul="1">
@@ -171,7 +177,7 @@
     <RegularLink>(?&lt;=&lt;h2 class="entry-title" itemprop="headline"&gt;).*?(?=&lt;/h2&gt;)</RegularLink>
     <RegularIntroduction>aaa</RegularIntroduction>
     <RegularTitel>(?&lt;=&lt;h1 class="entry-title" itemprop="headline"&gt;).*?(?=&lt;/h1&gt;)</RegularTitel>
-    <RegularDate>(?&lt;=&lt;time class="entry-time" itemprop="datePublished" datetime=)(.|\n)*?(?=&lt;/time&gt;)</RegularDate>
+    <RegularDate>(?&lt;=&lt;time class="entry-time" itemprop="datePublished" datetime=.*?&gt;)(.|\n)*?(?=&lt;/time&gt;)</RegularDate>
     <RegularContent>(?&lt;=&lt;div class="entry-content" itemprop="text"&gt;)(.|\n)*?(?=&lt;!--&lt;rdf:RDF)</RegularContent>
   </Web>
   <Web Name="Green Energy" StartURL="" Min="1" Max="9" Step="1" Modul="1">
@@ -187,21 +193,6 @@
     <RegularIntroduction>aaa</RegularIntroduction>
     <RegularTitel>(?&lt;=&lt;h1&gt;).*?(?=&lt;/h1&gt;)</RegularTitel>
     <RegularDate>(?&lt;=&lt;p class="date_location green"&gt;(.|\n)*?&lt;span&gt;)(.|\n)*?(?=&lt;/span&gt;)</RegularDate>
-    <RegularContent>(?&lt;=&lt;h2&gt;)(.|\n)*?(?=&lt;div class="page-footer"&gt;)</RegularContent>
-  </Web>
-  <Web Name="Energy Market Price" StartURL="" Min="1" Max="9" Step="1" Modul="1">
-    <URLs>
-      <URL Catagory="Wirtschaft">
-        <t1>http://www.energymarketprice.com/sitepage.asp?act=lnews&amp;pg=</t1>
-        <t2>
-        </t2>
-        <t3>&amp;topic=Ren&amp;sea=</t3>
-      </URL>
-    </URLs>
-    <RegularLink>(?&lt;=&lt;h3 .*?&gt;).*?(?=&lt;/h3&gt;)</RegularLink>
-    <RegularIntroduction>aaa</RegularIntroduction>
-    <RegularTitel>(?&lt;=&lt;h2 class='news-detail-title'&gt;)(.|\n)*?(?=&lt;br&gt;)</RegularTitel>
-    <RegularDate>(?&lt;=&lt;span class='date text-success'&gt;).*?(?=&lt;/span&gt;)</RegularDate>
-    <RegularContent>(?&lt;=&lt;h3 class='news-detail-subtitle'.*?&gt;)(.|\n)*?(?=&lt;script .*?&gt;)</RegularContent>
+    <RegularContent>(?&lt;=&lt;/h2&gt;)(.|\n)*?(?=&lt;div class="page-footer"&gt;)</RegularContent>
   </Web>
 </WebInfo>

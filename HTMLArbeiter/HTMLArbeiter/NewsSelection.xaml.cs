@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HTMLArbeiter.Model;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -28,10 +29,10 @@ namespace HTMLArbeiter
             InitializeComponent();
         }
 
-        List<nachricht> NachrichtList = new List<nachricht>();
-        List<nachricht> selectedList = new List<nachricht>();
-        nachricht selectedNews = new nachricht();
-        public NewsSelection(List<nachricht> nachrichtList)
+        List<NewsModul> NachrichtList = new List<NewsModul>();
+        List<NewsModul> selectedList = new List<NewsModul>();
+        NewsModul selectedNews = new NewsModul();
+        public NewsSelection(List<NewsModul> nachrichtList)
         {
             InitializeComponent();
             NachrichtList = nachrichtList;
@@ -48,7 +49,7 @@ namespace HTMLArbeiter
             ListBox lb = sender as ListBox;
             if (lb == null) return;
             if (lb.SelectedItem == null) return;
-            selectedNews = (nachricht)lb.SelectedItem;
+            selectedNews = (NewsModul)lb.SelectedItem;
             tbContent.Text = selectedNews.Content;
             tb_title.Text = selectedNews.Title;
             block_date.Text = selectedNews.date;
@@ -59,9 +60,9 @@ namespace HTMLArbeiter
 
         private void lb_SelectedData_Drop(object sender, DragEventArgs e)
         {
-            nachricht nr = (nachricht)e.Data.GetData(typeof(nachricht));
+            NewsModul nr = (NewsModul)e.Data.GetData(typeof(NewsModul));
             if (selectedList.Contains(nr)) return;
-            selectedList.Add((nachricht)e.Data.GetData(typeof(nachricht)));
+            selectedList.Add((NewsModul)e.Data.GetData(typeof(NewsModul)));
             ListBoxItem item = new ListBoxItem();
             StackPanel panel = new StackPanel();
             panel.Orientation = Orientation.Horizontal;
@@ -74,11 +75,11 @@ namespace HTMLArbeiter
             btnStufe.Content = "low";
             btnStufe.Click += StufeChange;
             btn.Width = 0;
-            btn.Content = e.Data.GetData(typeof(nachricht));
+            btn.Content = e.Data.GetData(typeof(NewsModul));
             ComboBox cb = new ComboBox();
-            cb.Items.Add("Legal Framework");
-            cb.Items.Add("Company Infomation");
-            tb.Text = ((nachricht)e.Data.GetData(typeof(nachricht))).Title;
+            cb.Items.Add("Framework");
+            cb.Items.Add("Company");
+            tb.Text = ((NewsModul)e.Data.GetData(typeof(NewsModul))).Title;
             IAddChild container = panel;
             
             container.AddChild(btn);

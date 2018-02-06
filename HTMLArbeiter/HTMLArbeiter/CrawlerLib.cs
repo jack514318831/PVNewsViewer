@@ -7,6 +7,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using HTMLArbeiter;
+using HTMLArbeiter.Model;
 
 namespace CrawlerLib
 {
@@ -17,11 +18,13 @@ namespace CrawlerLib
         string rTitle;
         string rDate;
         string rContent;
+        string rIntroduction;
 
-        public Crawler(string startUrl, string rlink, string rtitle, string rdate, string rcontent)
+        public Crawler(string startUrl, string rlink, string rintro, string rtitle, string rdate, string rcontent)
         {
             this.startUrl = startUrl;
             this.rLink = rlink;
+            this.rIntroduction = rintro;
             this.rTitle = rtitle;
             this.rDate = rdate;
             this.rContent = rcontent;
@@ -56,23 +59,7 @@ namespace CrawlerLib
         /// <param name="htmlStr">HTML-String</param>
         /// <returns>Url-Liste</returns>
         /// 
-        //public List<string> GetUrlList(string htmlStr)
-        //{
-        //    string linkedUrl;
-        //    List<string> urlList = new List<string>();
-
-        //    Regex regexLink = new Regex("(?<=<a\\s*?href=(?:'|\"))[^'\"]*?(?=(?:'|\"))");
-
-        //    foreach (var match in regexLink.Matches(htmlStr))
-        //    {
-        //        if (!urlList.Contains(match.ToString()))
-        //        {
-        //            linkedUrl = GetLinkedUrl(match.ToString());
-        //            urlList.Add(linkedUrl);
-        //        }
-        //    }
-        //    return urlList;
-        //}
+       
 
         public List<string> GetLinks(string htmlStr)
         {
@@ -103,13 +90,29 @@ namespace CrawlerLib
                     }
                 }
             }
-
              return urlList;
         }
 
-        public List<nachricht> GetNews(List<string> urlList, string newsCat, int max, MainWindow mw)
+        public List<string> GetIntroductions(string htmlStr)
         {
-            List<nachricht> resultlist = new List<nachricht>();
+            string instrostr;
+            List<string> InstroductionList = new List<string>();
+
+            Regex regexLink = new Regex(rIntroduction);
+            foreach (var match in regexLink.Matches(htmlStr))
+            {
+                if (!InstroductionList.Contains(match.ToString()))
+                {
+                    instrostr = match.ToString();
+                    InstroductionList.Add(instrostr);
+                }
+            }
+            return InstroductionList;
+        }
+
+        public List<NewsModul> GetNews(List<string> urlList,string newsCat, int max, MainWindow mw)
+        {
+            List<NewsModul> resultlist = new List<NewsModul>();
             int num = 0;
           
             foreach (string urlstr in urlList)
@@ -120,7 +123,7 @@ namespace CrawlerLib
                 string resultstr = GetResponsetHtmlStr(url);
                 string Linkstr;
 
-                Linkstr = urlstr;
+                Linkstr = url;
 
                 resultlist.Add(GetContent(resultstr, rTitle, rDate, rContent, Linkstr, newsCat));
                 num++;
@@ -129,60 +132,47 @@ namespace CrawlerLib
             return resultlist;
         }
 
-        public struct nachricht
+        public NewsModul GetContent(string htmlStr, string rTitel, string rDate, string rContent, string Linkstr, string NewsCat)
         {
-            public string Link { get; set; }
-            public string Title { get; set; }
-            public string Introduction { get; set; }
-            public string date { get; set; }
-            public string Content { get; set; }
-            public string Catagory { get; set; }
-        }
-
-        public nachricht GetContent(string htmlStr, string rTitel, string rDate, string rContent, string Linkstr, string NewsCat)
-        {
-            string linkedUrl;
-            string htmlstr2 = htmlStr;
-            nachricht nr = new nachricht();
+            string Matchstr;
+            NewsModul nr = new NewsModul();
             List<string> zlist = new List<string>();
             nr.Link = Linkstr;
 
             Regex regexTitel = new Regex(rTitel);
             Regex regexDate = new Regex(rDate);
             Regex regexContent = new Regex(rContent);
-
             Match match;
-            if (regexTitel.Matches(htmlstr2).Count > 0)
+            if (regexTitel.Matches(htmlStr).Count > 0)
             {
-                match = regexTitel.Matches(htmlstr2)[0];
+                match = regexTitel.Matches(htmlStr)[0];
                 if (!zlist.Contains(match.ToString()))
                 {
-                    linkedUrl = match.ToString();
-                    linkedUrl = linkedUrl.Replace("\n", "");
-                    nr.Title = linkedUrl;
+                    Matchstr = match.ToString();
+                    Matchstr = Matchstr.Replace("\n", "");
+                    nr.Title = Matchstr;
                 }
             }
 
-            if (regexDate.Matches(htmlstr2).Count > 0)
+            if (regexDate.Matches(htmlStr).Count > 0)
             {
-                match = regexDate.Matches(htmlstr2)[0];
+                match = regexDate.Matches(htmlStr)[0];
                 if (!zlist.Contains(match.ToString()))
                 {
-                    linkedUrl = match.ToString();
-                    linkedUrl = linkedUrl.Replace("\n", "");
-                    nr.date = linkedUrl;
+                    Matchstr = match.ToString();
+                    Matchstr = Matchstr.Replace("\n", "");
+                    nr.date = Matchstr;
                 }
             }
 
-            if (regexContent.Matches(htmlstr2).Count > 0)
+            if (regexContent.Matches(htmlStr).Count > 0)
             {
-                match = regexContent.Matches(htmlstr2)[0];
+                match = regexContent.Matches(htmlStr)[0];
                 if (!zlist.Contains(match.ToString()))
                 {
-                    linkedUrl = match.ToString();
-                    linkedUrl = linkedUrl.Replace("<br />", "<P>");
-                    linkedUrl = linkedUrl.Replace("\n", "");
-                    nr.Content = linkedUrl;
+                    Matchstr = match.ToString();
+                    Matchstr = Matchstr.Replace("\n", "");
+                    nr.Content = GetCleanText(Matchstr);
                 }
             }
 
@@ -192,6 +182,16 @@ namespace CrawlerLib
             return nr;
         }
 
+        private string GetCleanText(string matchstr)
+        {
+            string result = matchstr;
+            result = Regex.Replace(result, "<a(.|\\n)*?>(.|\\n)*?</a>", "");
+            result = Regex.Replace(result, "<div\\s*?class=(?:'|\").*?(?:'|\")\\s*?>(.|\\n)*?</div>", "");
+            return result;
+        }
+
+
+        #region Check Functions
         private string GetLinkedUrl(string url)
         {
             if (!url.Contains("http://"))
@@ -209,6 +209,7 @@ namespace CrawlerLib
             return url;
         }
 
+        
         /// <summary>
         /// Gibt einen Link mit http:// zurück, sofern 
         /// die Url kein http:// besitzt. Ansonsten 
@@ -232,6 +233,7 @@ namespace CrawlerLib
         {
             List<string> newComparedList = urlList2.Except(urlList1).ToList();
             return newComparedList;
-        }
+        } 
+        #endregion
     }
 }
