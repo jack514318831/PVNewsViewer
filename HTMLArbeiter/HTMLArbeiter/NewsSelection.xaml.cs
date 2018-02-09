@@ -1,7 +1,11 @@
 ﻿using HTMLArbeiter.Model;
+using Microsoft.Win32;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -67,18 +71,23 @@ namespace HTMLArbeiter
             StackPanel panel = new StackPanel();
             panel.Orientation = Orientation.Horizontal;
             TextBlock tb = new TextBlock();
-            tb.Width = 180;
+            tb.FontSize = 10;
+            tb.Width = 120;
             Button btn = new Button();
             Button btnStufe = new Button();
             btnStufe.Width = 40;
+            btnStufe.FontSize = 10;
             btnStufe.Margin = new Thickness(3);
             btnStufe.Content = "low";
             btnStufe.Click += StufeChange;
             btn.Width = 0;
             btn.Content = e.Data.GetData(typeof(NewsModul));
             ComboBox cb = new ComboBox();
+            cb.FontSize = 10;
             cb.Items.Add("Framework");
+            cb.Items.Add("Markt");
             cb.Items.Add("Company");
+            cb.Items.Add("Technology");
             tb.Text = ((NewsModul)e.Data.GetData(typeof(NewsModul))).Title;
             IAddChild container = panel;
             
@@ -111,7 +120,18 @@ namespace HTMLArbeiter
 
         private void btnExport_Click(object sender, RoutedEventArgs e)
         {
+        }
 
+        private void btnExportAll_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog open = new SaveFileDialog();
+            if (open.ShowDialog() == false) return;
+            IWorkbook wk = new XSSFWorkbook();
+            Functions.DataFunction.WriteDataToFile(wk, NachrichtList, "All");
+            using (FileStream fs = new FileStream(open.FileName, FileMode.OpenOrCreate))
+            {
+                wk.Write(fs);
+            }
         }
     }
 }

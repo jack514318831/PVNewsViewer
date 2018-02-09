@@ -110,7 +110,7 @@ namespace CrawlerLib
             return InstroductionList;
         }
 
-        public List<NewsModul> GetNews(List<string> urlList,string newsCat, int max, MainWindow mw)
+        public List<NewsModul> GetNews(List<string> urlList,string newsCat,string newsquelle, int max, MainWindow mw)
         {
             List<NewsModul> resultlist = new List<NewsModul>();
             int num = 0;
@@ -125,14 +125,14 @@ namespace CrawlerLib
 
                 Linkstr = url;
 
-                resultlist.Add(GetContent(resultstr, rTitle, rDate, rContent, Linkstr, newsCat));
+                resultlist.Add(GetContent(resultstr, rTitle, rDate, rContent, Linkstr, newsCat, newsquelle));
                 num++;
                 mw.SetProgressbarValue(num,newsCat+" fertig");
             }
             return resultlist;
         }
 
-        public NewsModul GetContent(string htmlStr, string rTitel, string rDate, string rContent, string Linkstr, string NewsCat)
+        public NewsModul GetContent(string htmlStr, string rTitel, string rDate, string rContent, string Linkstr, string NewsCat, string quelle)
         {
             string Matchstr;
             NewsModul nr = new NewsModul();
@@ -150,6 +150,7 @@ namespace CrawlerLib
                 {
                     Matchstr = match.ToString();
                     Matchstr = Matchstr.Replace("\n", "");
+                    Matchstr = GetCleanTitle(Matchstr);
                     nr.Title = Matchstr;
                 }
             }
@@ -177,6 +178,7 @@ namespace CrawlerLib
             }
 
             nr.Catagory = NewsCat;
+            nr.Quelle = quelle;
             nr.Introduction = "";
 
             return nr;
@@ -185,8 +187,18 @@ namespace CrawlerLib
         private string GetCleanText(string matchstr)
         {
             string result = matchstr;
-            result = Regex.Replace(result, "<a(.|\\n)*?>(.|\\n)*?</a>", "");
-            result = Regex.Replace(result, "<div\\s*?class=(?:'|\").*?(?:'|\")\\s*?>(.|\\n)*?</div>", "");
+            result = Regex.Replace(result, "<a(.|\\n)*?>(.|\\n)*?</a>|<div\\s*?class=(?:'|\").*?(?:'|\")\\s*?>(.|\\n)*?</div>|[&#].*?;", "");
+            result = Regex.Replace(result, "<div>|</div>|<br>|function.*?}", "");
+            result = Regex.Replace(result, "</[Pp]>|<[Pp]>|<br />","\n");
+            result = Regex.Replace(result, @"<(.+?>)((.|\n)*?)</\1", " $2 ");
+            if (result[0] == '\n') result = result.Substring(1, result.Length-1);
+            return result;
+        }
+
+        private string GetCleanTitle(string matchstr)
+        {
+            string result = matchstr;
+            result = Regex.Replace(result, "[&#].*?;", "");
             return result;
         }
 

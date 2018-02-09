@@ -40,6 +40,7 @@ namespace HTMLArbeiter
 
         List<WebModul> ModulList = new List<WebModul>();
         List<NewsModul> NachrichtList = new List<NewsModul>();
+        List<WebModul.UrlModel> urlList = new List<WebModul.UrlModel>();
         public WebModul wm { get; set; }
         public WebModul.UrlModel wmUrl { get; set; }
         public ManualResetEvent ThreadDone = new ManualResetEvent(false);
@@ -57,6 +58,9 @@ namespace HTMLArbeiter
             {
                 CheckBox cb = new CheckBox();
                 cb.Content = url.CatName;
+                cb.IsChecked = urlList.Contains(url);
+                cb.Checked += UrlCheckBox_Checked;
+                cb.Unchecked += UrlCheckBox_Unchecked;
                 IAddChild container = this.SPCatagory;
                 container.AddChild(cb);
             }
@@ -99,38 +103,38 @@ namespace HTMLArbeiter
             //WriteDataThread.IsBackground = true;
             //WriteDataThread.Start(); 
             #endregion
-            SaveFileDialog open = new SaveFileDialog();
-            open.Filter = "Excel (*.xlsx)|*.xlsx";
-            if (open.ShowDialog() == false) return;
+            //SaveFileDialog open = new SaveFileDialog();
+            //open.Filter = "Excel (*.xlsx)|*.xlsx";
+            //if (open.ShowDialog() == false) return;
 
-            List<string> selectedlist = new List<string>();
-            int NewsCount = txtNewsCount.Text.Equals(string.Empty) ? 0 : int.Parse(txtNewsCount.Text);
-            WebModul newsModel = wm.Clone() as WebModul;
+            //List<string> selectedlist = new List<string>();
+            //int NewsCount = txtNewsCount.Text.Equals(string.Empty) ? 0 : int.Parse(txtNewsCount.Text);
+            //WebModul newsModel = wm.Clone() as WebModul;
 
-            foreach(var item in SPCatagory.Children)
-            {
-                if((item as CheckBox).IsChecked==true)
-                selectedlist.Add((item as CheckBox).Content.ToString());
-            }
+            //foreach(var item in SPCatagory.Children)
+            //{
+            //    if((item as CheckBox).IsChecked==true)
+            //    selectedlist.Add((item as CheckBox).Content.ToString());
+            //}
 
-            IEnumerable<WebModul.UrlModel> list = from url in wm.Urls
-                                                  where selectedlist.Contains(url.CatName)
-                                                  select url;
-            newsModel.Urls = list.ToList();
+            //IEnumerable<WebModul.UrlModel> list = from url in wm.Urls
+            //                                      where selectedlist.Contains(url.CatName)
+            //                                      select url;
+            //newsModel.Urls = list.ToList();
 
-            pbProcess.Maximum = NewsCount;
-            pbProcess.Minimum = 0;
+            //pbProcess.Maximum = NewsCount;
+            //pbProcess.Minimum = 0;
 
-            Thread oThread = new Thread(() =>
-            {
-                DataFunction.GetNews(ref wk, newsModel, NewsCount, this);
-                using (FileStream fs = new FileStream(open.FileName, FileMode.OpenOrCreate))
-                {
-                    wk.Write(fs);
-                }
-            });
-            oThread.IsBackground = true;
-            oThread.Start();
+            //Thread oThread = new Thread(() =>
+            //{
+            //    DataFunction.GetNews(ref wk, newsModel, NewsCount, this);
+            //    using (FileStream fs = new FileStream(open.FileName, FileMode.OpenOrCreate))
+            //    {
+            //        wk.Write(fs);
+            //    }
+            //});
+            //oThread.IsBackground = true;
+            //oThread.Start();
 
         }
 
@@ -158,6 +162,9 @@ namespace HTMLArbeiter
             {
                 CheckBox cb = new CheckBox();
                 cb.Content = url.CatName;
+                cb.IsChecked = urlList.Contains(url);
+                cb.Checked += UrlCheckBox_Checked;
+                cb.Unchecked += UrlCheckBox_Unchecked;
                 IAddChild container = this.SPCatagory;
                 container.AddChild(cb);
             }
@@ -197,57 +204,52 @@ namespace HTMLArbeiter
 
         private void btnGetAllCat_Click(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog open = new SaveFileDialog();
-            open.Filter = "Excel (*.xlsx)|*.xlsx";
-            if (open.ShowDialog() == false) return;
+            //SaveFileDialog open = new SaveFileDialog();
+            //open.Filter = "Excel (*.xlsx)|*.xlsx";
+            //if (open.ShowDialog() == false) return;
             
-            int NewsCount = txtNewsCount.Text.Equals(string.Empty) ? 0 : int.Parse(txtNewsCount.Text);
+            //int NewsCount = txtNewsCount.Text.Equals(string.Empty) ? 0 : int.Parse(txtNewsCount.Text);
 
-            pbProcess.Maximum = NewsCount;
-            pbProcess.Minimum = 0;
+            //pbProcess.Maximum = NewsCount;
+            //pbProcess.Minimum = 0;
 
-            Thread oThread = new Thread(() =>
-            {
-                foreach (WebModul modul in ModulList)
-                {
-                    DataFunction.GetNews(ref wk, modul, NewsCount,this);
-                }
-                using (FileStream fs = new FileStream(open.FileName, FileMode.OpenOrCreate))
-                {
-                    wk.Write(fs);
-                }
-            });
-            oThread.IsBackground = true;
-            oThread.Start();
+            //Thread oThread = new Thread(() =>
+            //{
+            //    foreach (WebModul modul in ModulList)
+            //    {
+            //        DataFunction.GetNews(ref wk, modul, NewsCount,this);
+            //    }
+            //    using (FileStream fs = new FileStream(open.FileName, FileMode.OpenOrCreate))
+            //    {
+            //        wk.Write(fs);
+            //    }
+            //});
+            //oThread.IsBackground = true;
+            //oThread.Start();
         }
 
         private void btnGetDataToTool_Click(object sender, RoutedEventArgs e)
         {
-            List<string> selectedlist = new List<string>();
             int NewsCount = txtNewsCount.Text.Equals(string.Empty) ? 0 : int.Parse(txtNewsCount.Text);
-            WebModul newsModel = wm.Clone() as WebModul;
-
-            foreach (var item in SPCatagory.Children)
-            {
-                if ((item as CheckBox).IsChecked == true)
-                    selectedlist.Add((item as CheckBox).Content.ToString());
-            }
-
-            IEnumerable<WebModul.UrlModel> list = from url in wm.Urls
-                                                  where selectedlist.Contains(url.CatName)
-                                                  select url;
-            newsModel.Urls = list.ToList();
-
             pbProcess.Maximum = NewsCount;
             pbProcess.Minimum = 0;
 
             lbNewslist.Items.Clear();
-            Thread oThread = new Thread(() =>
+
+            foreach (WebModul web in ModulList)
             {
-                DataFunction.GetNewsToTool(newsModel, NewsCount, this);
-            });
-            oThread.IsBackground = true;
-            oThread.Start();
+                WebModul newsModel = web.Clone() as WebModul;
+                IEnumerable<WebModul.UrlModel> list = urlList.Where((u) => newsModel.Urls.Contains(u));
+
+                newsModel.Urls = list.ToList();
+
+                Thread oThread = new Thread(() =>
+                {
+                    DataFunction.GetNewsToTool(newsModel, NewsCount, this);
+                });
+                oThread.IsBackground = true;
+                oThread.Start();
+            }
         }
 
         public void AddNewsList(List<NewsModul> nachrichtList)
@@ -288,16 +290,16 @@ namespace HTMLArbeiter
 
             lbNewslist.Items.Clear();
             lbNewslistCat.Items.Clear();
-            Thread oThread = new Thread(() =>
+            foreach (WebModul modul in ModulList)
             {
-                foreach (WebModul modul in ModulList)
+                Thread oThread = new Thread(() =>
                 {
                     AddListboxItem(modul.Name);
                     DataFunction.GetNewsToTool(modul, NewsCount, this);
-                }
-            });
-            oThread.IsBackground = true;
-            oThread.Start();
+                });
+                oThread.IsBackground = true;
+                oThread.Start();
+            }
         }
 
         private void lbNewslist_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -321,6 +323,20 @@ namespace HTMLArbeiter
             });
             oThread.SetApartmentState(ApartmentState.STA);
             oThread.Start();
+        }
+
+        private void UrlCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            string UrlName = (sender as CheckBox).Content.ToString();
+            WebModul.UrlModel url = wm.Urls.Where((u) => u.CatName.Equals(UrlName)).First();
+            urlList.Add(url);
+        }
+
+        private void UrlCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            string UrlName = (sender as CheckBox).Content.ToString();
+            WebModul.UrlModel url = wm.Urls.Where((u) => u.CatName.Equals(UrlName)).First();
+            urlList.Remove(url);
         }
     }
 }

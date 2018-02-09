@@ -15,7 +15,7 @@ namespace HTMLArbeiter.Functions
 {
     public static class DataFunction
     {
-        private static void WriteDataToFile(IWorkbook wk,List<NewsModul> lists,string TableName)
+        public static void WriteDataToFile(IWorkbook wk,List<NewsModul> lists,string TableName)
         {
             ISheet sheet = wk.CreateSheet(TableName);
             int zeile =0;
@@ -28,50 +28,51 @@ namespace HTMLArbeiter.Functions
                 row.CreateCell(2).SetCellValue(n.date);
                 row.CreateCell(3).SetCellValue(n.Link);
                 row.CreateCell(4).SetCellValue(n.Catagory);
+                row.CreateCell(5).SetCellValue(n.Quelle);
                 zeile++;
             }
 
         }
 
-        public static void GetNews(ref IWorkbook wk, WebModul nm, int MaxNewsCount, MainWindow mw)
-        {
-            int startIndex = int.Parse(nm.Min);
-            int Step = int.Parse(nm.Step);
-            int EndIndex = startIndex + Step*(MaxNewsCount/10);
+        //public static void GetNews(ref IWorkbook wk, WebModul nm, int MaxNewsCount, MainWindow mw)
+        //{
+        //    int startIndex = int.Parse(nm.Min);
+        //    int Step = int.Parse(nm.Step);
+        //    int EndIndex = startIndex + Step*(MaxNewsCount/10);
 
-            List<string> urlList = new List<string>();
-            List<NewsModul> nachrichtList = new List<NewsModul>();
+        //    List<string> urlList = new List<string>();
+        //    List<NewsModul> nachrichtList = new List<NewsModul>();
 
-            string htmlLinkResponsestr= "";
-            Crawler crawler = new Crawler(nm.StartURL, nm.RegularLink,nm.RegularIntroduction, nm.RegularTitel, nm.RegularDate,
-                nm.RegularContent);
+        //    string htmlLinkResponsestr= "";
+        //    Crawler crawler = new Crawler(nm.StartURL, nm.RegularLink,nm.RegularIntroduction, nm.RegularTitel, nm.RegularDate,
+        //        nm.RegularContent);
 
-            foreach (WebModul.UrlModel url in nm.Urls)
-            {
-                urlList.Clear();
-                for (int i = startIndex; i <= EndIndex; i += Step)
-                {
-                    string htmlurl = "";
-                    if (nm.Modul.Equals("0"))
-                    {
-                        if ( i == 0) htmlurl = url.URLT1;
-                        else if (!url.URLT3.Equals("")) htmlurl = url.URLT1 + url.URLT2 + i.ToString() + url.URLT3;
-                        else htmlurl = url.URLT1 + url.URLT2 + i.ToString() + "/";
-                    }
-                    else
-                    {
-                        if (i == 1 || i == 0) htmlurl = url.URLT1;
-                        else if (!url.URLT3.Equals("")) htmlurl = url.URLT1 + url.URLT2 + i.ToString() + url.URLT3;
-                        else htmlurl = url.URLT1 + url.URLT2 + i.ToString() + "/";
-                    }
+        //    foreach (WebModul.UrlModel url in nm.Urls)
+        //    {
+        //        urlList.Clear();
+        //        for (int i = startIndex; i <= EndIndex; i += Step)
+        //        {
+        //            string htmlurl = "";
+        //            if (nm.Modul.Equals("0"))
+        //            {
+        //                if ( i == 0) htmlurl = url.URLT1;
+        //                else if (!url.URLT3.Equals("")) htmlurl = url.URLT1 + url.URLT2 + i.ToString() + url.URLT3;
+        //                else htmlurl = url.URLT1 + url.URLT2 + i.ToString() + "/";
+        //            }
+        //            else
+        //            {
+        //                if (i == 1 || i == 0) htmlurl = url.URLT1;
+        //                else if (!url.URLT3.Equals("")) htmlurl = url.URLT1 + url.URLT2 + i.ToString() + url.URLT3;
+        //                else htmlurl = url.URLT1 + url.URLT2 + i.ToString() + "/";
+        //            }
                     
-                    htmlLinkResponsestr = crawler.GetResponsetHtmlStr(htmlurl);
-                    urlList = urlList.Concat(crawler.GetLinks(htmlLinkResponsestr)).ToList();
-                }
-                nachrichtList = nachrichtList.Concat(crawler.GetNews(urlList, url.CatName,MaxNewsCount,mw)).ToList();
-            }
-            WriteDataToFile(wk, nachrichtList,nm.Name);
-        }
+        //            htmlLinkResponsestr = crawler.GetResponsetHtmlStr(htmlurl);
+        //            urlList = urlList.Concat(crawler.GetLinks(htmlLinkResponsestr)).ToList();
+        //        }
+        //        nachrichtList = nachrichtList.Concat(crawler.GetNews(urlList, url.CatName,MaxNewsCount,mw)).ToList();
+        //    }
+        //    WriteDataToFile(wk, nachrichtList,nm.Name);
+        //}
 
         public static void GetNewsToTool(WebModul nm, int MaxNewsCount, MainWindow mw)
         {
@@ -98,7 +99,7 @@ namespace HTMLArbeiter.Functions
                     i++;
                 }
                 while (i <= EndIndex);
-                NewsList = crawler.GetNews(urlList, url.CatName, MaxNewsCount, mw);
+                NewsList = crawler.GetNews(urlList, url.CatName,nm.Name, MaxNewsCount, mw);
                 mw.AddNewsList(NewsList);
             }
         }

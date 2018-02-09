@@ -14,5 +14,6 @@ namespace HTMLArbeiter.Model
         public string date { get; set; }
         public string Content { get; set; }
         public string Catagory { get; set; }
+        public string Quelle { get; set; }
     }
 }

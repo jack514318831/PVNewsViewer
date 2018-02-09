@@ -33,9 +33,9 @@
     <RegularDate>(?&lt;=&lt;div class="field field-name-post-date field-type-ds field-label-inline clearfix"&gt;(.|\n)*?;)(.|\n)*?(?=-)</RegularDate>
     <RegularContent>(?&lt;=&lt;div class="field-item even" property="content:encoded"&gt;)(.|\n)*?(?=&lt;/div&gt;)</RegularContent>
   </Web>
-<Web Name="PV Tech" StartURL="" Min="0" Max="90" Step="15" Modul="1">
+  <Web Name="PV Tech" StartURL="" Min="0" Max="90" Step="15" Modul="1">
     <URLs>
-      <URL Catagory="manufacturing">
+      <URL Catagory="Manufacturing">
         <t1>https://www.pv-tech.org/news/list/category/manufacturing/</t1>
         <t2>P</t2>
         <t3>
@@ -62,32 +62,56 @@
   </Web>
   <Web Name="PV Magazine" StartURL="" Min="1" Max="2" Step="1" Modul="1">
     <URLs>
-      <URL Catagory="Markt">
-        <t1>https://www.pv-magazine.de/kategorie/maerkte/</t1>
+      <URL Catagory="Markts">
+        <t1>https://www.pv-magazine.com/category/markets-policy/markets/</t1>
         <t2>page/</t2>
         <t3>
         </t3>
       </URL>
-      <URL Catagory="Politik">
-        <t1>https://www.pv-magazine.de/kategorie/politik/</t1>
+      <URL Catagory="Policy">
+        <t1>https://www.pv-magazine.com/category/markets-policy/policy/</t1>
         <t2>page/</t2>
         <t3>
         </t3>
       </URL>
-      <URL Catagory="Speicher">
-        <t1>https://www.pv-magazine.de/kategorie/speicher/</t1>
+      <URL Catagory="Finance">
+        <t1>https://www.pv-magazine.com/category/markets-policy/finance/</t1>
         <t2>page/</t2>
         <t3>
         </t3>
       </URL>
-      <URL Catagory="Technologie">
-        <t1>https://www.pv-magazine.de/kategorie/technologie/</t1>
+      <URL Catagory="Storage">
+        <t1>https://www.pv-magazine.com/category/markets-policy/energy-storage-markets-policy/</t1>
         <t2>page/</t2>
         <t3>
         </t3>
       </URL>
-      <URL Catagory="Installation">
-        <t1>https://www.pv-magazine.de/kategorie/installation/</t1>
+      <URL Catagory="Technology">
+        <t1>https://www.pv-magazine.com/category/technology/technology-and-r-d/</t1>
+        <t2>page/</t2>
+        <t3>
+        </t3>
+      </URL>
+      <URL Catagory="Residential">
+        <t1>https://www.pv-magazine.com/category/installations/residential-pv/</t1>
+        <t2>page/</t2>
+        <t3>
+        </t3>
+      </URL>
+      <URL Catagory="Upstream">
+        <t1>https://www.pv-magazine.com/category/manufacturing/modules-upstream-manufacturing/</t1>
+        <t2>page/</t2>
+        <t3>
+        </t3>
+      </URL>
+      <URL Catagory="Commercial">
+        <t1>https://www.pv-magazine.com/category/installations/commercial-industrial-pv/</t1>
+        <t2>page/</t2>
+        <t3>
+        </t3>
+      </URL>
+      <URL Catagory="Utility">
+        <t1>https://www.pv-magazine.com/category/installations/utility-scale-pv/</t1>
         <t2>page/</t2>
         <t3>
         </t3>
