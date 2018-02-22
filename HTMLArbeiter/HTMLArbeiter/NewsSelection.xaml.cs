@@ -71,8 +71,8 @@ namespace HTMLArbeiter
             StackPanel panel = new StackPanel();
             panel.Orientation = Orientation.Horizontal;
             TextBlock tb = new TextBlock();
-            tb.FontSize = 10;
-            tb.Width = 120;
+            tb.FontSize = 12;
+            tb.Width = 240;
             Button btn = new Button();
             Button btnStufe = new Button();
             btnStufe.Width = 40;
@@ -132,6 +132,11 @@ namespace HTMLArbeiter
             {
                 wk.Write(fs);
             }
+        }
+
+        private void lb_data_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 }
