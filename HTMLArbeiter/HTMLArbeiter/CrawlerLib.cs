@@ -49,18 +49,7 @@ namespace CrawlerLib
             }
             return htmlStr;
         }
-
-
-        /// <summary>
-        /// Durchsuche den HTML-String nach href-Links, 
-        /// füge diese einer Liste hinzu und gebe die Liste 
-        /// zurück
-        /// </summary>
-        /// <param name="htmlStr">HTML-String</param>
-        /// <returns>Url-Liste</returns>
-        /// 
        
-
         public List<string> GetLinks(string htmlStr)
         {
             string linkedUrl;
@@ -138,6 +127,7 @@ namespace CrawlerLib
             NewsModul nr = new NewsModul();
             List<string> zlist = new List<string>();
             nr.Link = Linkstr;
+            nr.Htmlstr = htmlStr;
 
             Regex regexTitel = new Regex(rTitel);
             Regex regexDate = new Regex(rDate);
@@ -162,7 +152,7 @@ namespace CrawlerLib
                 {
                     Matchstr = match.ToString();
                     Matchstr = Matchstr.Replace("\n", "");
-                    nr.date = Matchstr;
+                    nr.date = GetCleanDate(Matchstr);
                 }
             }
 
@@ -188,8 +178,10 @@ namespace CrawlerLib
         {
             string result = matchstr;
             result = Regex.Replace(result, "<a(.|\\n)*?>(.|\\n)*?</a>|<div\\s*?class=(?:'|\").*?(?:'|\")\\s*?>(.|\\n)*?</div>|[&#].*?;", "");
-            result = Regex.Replace(result, "<div>|</div>|<br>|function.*?}", "");
-            result = Regex.Replace(result, "</[Pp]>|<[Pp]>|<br />","\n");
+            result = Regex.Replace(result, "<div>|</div>|<br>|function.*?}|<img.*?>", "");
+            result = Regex.Replace(result, "</[Pp]>|<[Pp].*?>|<br />","\n");
+            result = Regex.Replace(result, "<span.*?>(.*?)</span>","\n$1\n");
+            result = Regex.Replace(result, "<li.*?>(.*?)</li>", "\n$1\n");
             result = Regex.Replace(result, @"<(.+?>)((.|\n)*?)</\1", " $2 ");
             if (result[0] == '\n') result = result.Substring(1, result.Length-1);
             return result;
@@ -202,6 +194,20 @@ namespace CrawlerLib
             return result;
         }
 
+        private string GetCleanDate(string matchstr)
+        {
+            string Datestr = matchstr;
+            string Outstr = "";
+            DateTime outDate = DateTime.Now;
+            if (DateTime.TryParse(Datestr, out outDate)) Outstr = outDate.ToString();
+            if (Outstr.Equals(""))
+            {
+                string[] arrTime = Datestr.Split('/');
+                Datestr = "20" + arrTime[2] + "-" + arrTime[0] + "-" + arrTime[1];
+            }
+            if (DateTime.TryParse(Datestr, out outDate)) Outstr = outDate.ToString();
+            return Outstr;
+        }
 
         #region Check Functions
         private string GetLinkedUrl(string url)

@@ -338,5 +338,20 @@ namespace HTMLArbeiter
             WebModul.UrlModel url = wm.Urls.Where((u) => u.CatName.Equals(UrlName)).First();
             urlList.Remove(url);
         }
+
+        private void btnTest_Click(object sender, RoutedEventArgs e)
+        {
+            string Datestr = txtInput.Text;
+            string Outstr = "";
+            DateTime outDate = DateTime.Now;
+            if (DateTime.TryParse(Datestr, out outDate)) Outstr = outDate.ToString();
+            if (Outstr.Equals(""))
+            {
+                string[] arrTime = Datestr.Split('/');
+                Datestr = "20"+arrTime[2] + "-" + arrTime[0] + "-" + arrTime[1]; 
+            }
+            if (DateTime.TryParse(Datestr, out outDate)) Outstr = outDate.ToString();
+            txtOutput.Text = Outstr;
+        }
     }
 }

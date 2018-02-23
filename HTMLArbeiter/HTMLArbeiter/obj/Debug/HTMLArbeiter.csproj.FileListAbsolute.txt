@@ -59,3 +59,4 @@ C:\Users\g.he\Documents\CSharp\Git\HTMLArbeiter\HTMLArbeiter\HTMLArbeiter\obj\De
 C:\Users\g.he\Documents\CSharp\Git\HTMLArbeiter\HTMLArbeiter\HTMLArbeiter\obj\Debug\HTMLArbeiter.csproj.GenerateResource.Cache
 C:\Users\g.he\Documents\CSharp\Git\HTMLArbeiter\HTMLArbeiter\HTMLArbeiter\obj\Debug\HTMLArbeiter.exe
 C:\Users\g.he\Documents\CSharp\Git\HTMLArbeiter\HTMLArbeiter\HTMLArbeiter\obj\Debug\HTMLArbeiter.pdb
+C:\Users\g.he\Documents\CSharp\Git\HTMLArbeiter\HTMLArbeiter\HTMLArbeiter\obj\Debug\GeneratedInternalTypeHelper.g.cs

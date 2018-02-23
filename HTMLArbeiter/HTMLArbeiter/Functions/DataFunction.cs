@@ -29,6 +29,9 @@ namespace HTMLArbeiter.Functions
                 row.CreateCell(3).SetCellValue(n.Link);
                 row.CreateCell(4).SetCellValue(n.Catagory);
                 row.CreateCell(5).SetCellValue(n.Quelle);
+                row.CreateCell(6).SetCellValue(n.PorS);
+                row.CreateCell(7).SetCellValue(n.NewsCat);
+                row.CreateCell(8).SetCellValue(n.Level);
                 zeile++;
             }
 
